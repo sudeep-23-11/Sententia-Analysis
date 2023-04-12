@@ -2,6 +2,7 @@ import streamlit as st
 from preprocessing import preprocessor
 from total import get_total
 from most import get_most
+from timeline import get_timeline
 
 with st.sidebar :
     st.title("WhatsApp Chat Analyzer")
@@ -23,3 +24,5 @@ if file :
         get_total(df, user)
 
         get_most(df, user)
+
+        get_timeline(df, user)
