@@ -1,6 +1,7 @@
 import streamlit as st
 from preprocessing import preprocessor
 from total import get_total
+from most import get_most
 
 with st.sidebar :
     st.title("WhatsApp Chat Analyzer")
@@ -20,3 +21,5 @@ if file :
 
     if click :
         get_total(df, user)
+
+        get_most(df, user)
