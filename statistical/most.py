@@ -3,13 +3,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter
 from emoji import EMOJI_DATA
+from emoji import demojize
 
 def get_most (data, user) :
 
     if user == "All users" :
         df = data
 
-        busy = df["user"].value_counts().head()
+        busy = df["user"].value_counts().head(10)
         fig, ax = plt.subplots()
         ax.barh(busy.index, busy.values, color='r')
         plt.xlabel("Frequency")
@@ -18,12 +19,13 @@ def get_most (data, user) :
         with c1:
             st.header("Most busy Users")
             st.pyplot(fig)
+        st.write('#')
 
     else :
         df = data[(data["user"] == user)]
 
     words = df[(df["user"] != "WhatsApp Notifications") & (df["message"] != "<Media omitted>\n") & (df["message"] != "This message was deleted\n")]
-    f = open("./stop_words.txt", 'r')
+    f = open("./data/stop-words.txt", 'r')
     stop_words = f.read()
     f.close()
     _words = []
@@ -44,7 +46,7 @@ def get_most (data, user) :
                 _emojis.append(j)
     emojis = pd.DataFrame(Counter(_emojis).most_common(10))
     fig2, ax = plt.subplots()
-    ax.pie(emojis[1], labels=emojis[0], autopct="%1.1f%%", startangle=90)
+    ax.pie(emojis[1], labels=[demojize(e) for e in emojis[0]], autopct="%1.1f%%", startangle=90, radius=2)
     
     c1, c2 = st.columns(spec=[1, 1], gap="small")
     with c1:
@@ -53,3 +55,4 @@ def get_most (data, user) :
     with c2:
         st.header("Most used Emojis")
         st.pyplot(fig2)
+    st.write('#')

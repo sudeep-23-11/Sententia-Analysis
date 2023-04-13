@@ -13,10 +13,11 @@ def get_timeline (data, user) :
     ax.plot(year.index, year.values, color='b')
     plt.xlabel("Year")
     plt.ylabel("Frequency")
+    plt.xlim(2020, 2025)
 
-    month = df.groupby(["month"])["message"].count()
+    month = df.groupby(["month no", "month"])["message"].count()
     fig2, ax = plt.subplots()
-    ax.plot(month.index, month.values, color='g')
+    ax.plot([m[1] for m in month.index], month.values, color='g')
     plt.xlabel("Month")
     plt.ylabel("Frequency")
     plt.xticks(rotation=90)
@@ -28,6 +29,7 @@ def get_timeline (data, user) :
     with c2:
         st.header("Monthly timeline")
         st.pyplot(fig2)
+    st.write('#')
 
     day = df.groupby(["day"])["message"].count()
     fig1, ax = plt.subplots()
@@ -48,3 +50,4 @@ def get_timeline (data, user) :
     with c2:
         st.header("Hourly timeline")
         st.pyplot(fig2)
+    st.write('#')

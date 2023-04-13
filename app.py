@@ -1,8 +1,9 @@
 import streamlit as st
-from preprocessing import preprocessor
-from total import get_total
-from most import get_most
-from timeline import get_timeline
+
+import preprocessing
+from statistical import total
+from statistical import most
+from statistical import timeline
 
 with st.sidebar :
     st.title("WhatsApp Chat Analyzer")
@@ -10,7 +11,7 @@ with st.sidebar :
 
 if file :
     data = file.getvalue().decode("utf-8")
-    df = preprocessor(data)
+    df = preprocessing.preprocessor(data)
 
     unique_users = df["user"].unique().tolist()
     unique_users.remove("WhatsApp Notifications")
@@ -18,11 +19,10 @@ if file :
     unique_users.insert(0, "All users")
     with st.sidebar :
         user = st.selectbox(label="Choose a user", options=unique_users, index=0)
-        click = st.button(label="Show", type="primary")
+        stat = st.button(label="Statistical Analysis", type="primary")
+        senti = st.button(label="Sentimental Analysis", type="primary")
 
-    if click :
-        get_total(df, user)
-
-        get_most(df, user)
-
-        get_timeline(df, user)
+    if stat :
+        total.get_total(df, user)
+        most.get_most(df, user)
+        timeline.get_timeline(df, user)

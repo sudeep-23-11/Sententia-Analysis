@@ -10,6 +10,7 @@ def preprocessor (data) :
 
     df["date"] = pd.to_datetime(df["date"], format="%d/%m/%Y, %H:%M - ")
     df["day"] = df["date"].dt.day
+    df["month no"] = df["date"].dt.month
     df["month"] = df["date"].dt.month_name()
     df["year"] = df["date"].dt.year
     df["hour"] = df["date"].dt.hour

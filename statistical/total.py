@@ -34,3 +34,4 @@ def get_total (data, user) :
     with c4:
         st.header("Total Links shared")
         st.subheader(len(links))
+    st.write('#')
