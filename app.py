@@ -4,6 +4,8 @@ import preprocessing
 from statistical import total
 from statistical import most
 from statistical import timeline
+from sentimental import vader
+from sentimental import textblob
 
 with st.sidebar :
     st.title("WhatsApp Chat Analyzer")
@@ -26,3 +28,7 @@ if file :
         total.get_total(df, user)
         most.get_most(df, user)
         timeline.get_timeline(df, user)
+
+    if senti :
+        textblob.get_textblob(df, user)
+        vader.get_vader(df, user)
